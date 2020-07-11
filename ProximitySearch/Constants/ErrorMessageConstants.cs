@@ -4,6 +4,9 @@ namespace CodingExercise.Constants
     {
         public const string InvalidKeywordArgumentErrorMessage = "One or both of the keywords is null or empty";
         public const string InvalidRangeArgumentErrorMessage = "The numeric range argument is invalid";
-        public const string InvalidFileArgumentErrorMessage = "The file could not be found";
+        public const string InvalidFileArgumentErrorMessage = "The file could not be found or cannot be read";
+
+        public const string InvalidInputFileIndex = "No word exists at this location in the input file";
+        public const string InvalidInputFileRange = "You cannot get words from the input file with a negative range";
     }
 }
