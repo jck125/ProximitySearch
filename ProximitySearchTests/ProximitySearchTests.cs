@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using CodingExercise;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using ProximitySearchTests.Constants;
 
 namespace ProximitySearchTests
 {
@@ -13,7 +14,7 @@ namespace ProximitySearchTests
         [TestMethod]
         public void TestConstructorValidInput()
         {
-            string[] args = new[] {"the", "canal", "6", "filename.txt"};
+            string[] args = new[] {"the", "canal", "6", LocalFilePathConstants.LocalTestFileDirectory + "ValidTestFile.txt"};
             _proximitySearch = new ProximitySearch(args);
         }
         
@@ -21,7 +22,7 @@ namespace ProximitySearchTests
         [ExpectedException(typeof(ArgumentException))]
         public void TestConstructorTooManyArguments()
         {
-            string[] args = new[] {"the", "canal", "6", "filename.txt", "additionalArg"};
+            string[] args = new[] {"the", "canal", "6", LocalFilePathConstants.LocalTestFileDirectory + "ValidTestFile.txt", "additionalArg"};
             _proximitySearch = new ProximitySearch(args);
         }
         
@@ -30,22 +31,6 @@ namespace ProximitySearchTests
         public void TestConstructorTooFewArguments()
         {
             string[] args = new[] {"the", "canal", "6"};
-            _proximitySearch = new ProximitySearch(args);
-        }
-        
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
-        public void TestConstructorThirdArgumentNotAnInteger()
-        {
-            string[] args = new[] {"the", "canal", "six", "filename.txt"};
-            _proximitySearch = new ProximitySearch(args);
-        }
-        
-        [TestMethod]
-        [ExpectedException(typeof(FileNotFoundException))]
-        public void TestConstructorFileNotFound()
-        {
-            string[] args = new[] {"the", "canal", "6", "nonexistentfile.txt"};
             _proximitySearch = new ProximitySearch(args);
         }
     }
