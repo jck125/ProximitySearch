@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using CodingExercise.Constants;
 using CodingExercise.Inputfile;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ProximitySearchTests.Constants;
@@ -19,10 +20,16 @@ namespace ProximitySearchTests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(FileNotFoundException))]
         public void TestConstructorWithInvalidFile()
         {
-            InputFile file = new InputFile("FakeTestFile.txt");
+            try
+            {
+                InputFile file = new InputFile("FakeTestFile.txt");
+            }
+            catch (FileNotFoundException e)
+            {
+                Assert.AreEqual(ErrorMessageConstants.InvalidFileArgumentErrorMessage, e.Message);
+            }
         }
 
         [TestMethod]
@@ -34,10 +41,23 @@ namespace ProximitySearchTests
 
             string[] words = file.GetWordsInRange(testStartIndex, testRange);
             Assert.AreEqual(testRange, words.Length);
-            Assert.AreEqual("The", words[0]);
+            Assert.AreEqual("the", words[0]);
             Assert.AreEqual("man", words[1]);
         }
         
+        [TestMethod]
+        public void TestGetWordsInRangeWithValidRangeThatExtendsPastEndOfTestFile()
+        {
+            int testRange = 6;
+            int testStartIndex = 19;
+            InputFile file = new InputFile(LocalFilePathConstants.LocalTestFileDirectory + "ValidTestFile.txt");
+
+            string[] words = file.GetWordsInRange(testStartIndex, testRange);
+            Assert.AreEqual(2, words.Length);
+            Assert.AreEqual("canal", words[0]);
+            Assert.AreEqual("panama", words[1]);
+        }
+
         [TestMethod]
         public void TestGetWordsInRangeWithZeroRange()
         {
@@ -50,14 +70,80 @@ namespace ProximitySearchTests
         }
         
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
         public void TestGetWordsInRangeWithNegativeRange()
         {
             int testRangeInvalid = -1;
             int testStartIndex = 0;
             InputFile file = new InputFile(LocalFilePathConstants.LocalTestFileDirectory + "ValidTestFile.txt");
 
-            file.GetWordsInRange(testStartIndex, testRangeInvalid);
+            try
+            {
+                file.GetWordsInRange(testStartIndex, testRangeInvalid);
+            }
+            catch (ArgumentException e)
+            {
+                Assert.AreEqual(ErrorMessageConstants.InvalidInputFileRange, e.Message);
+            }
         }
+        
+        [TestMethod]
+        public void TestGetWordsInRangeWithNegativeStartIndex()
+        {
+            int testRange = 2;
+            int testStartIndexInvalid = -1;
+            InputFile file = new InputFile(LocalFilePathConstants.LocalTestFileDirectory + "ValidTestFile.txt");
+
+            try
+            {
+                file.GetWordsInRange(testStartIndexInvalid, testRange);
+            }
+            catch (ArgumentException e)
+            {
+                Assert.AreEqual(ErrorMessageConstants.InvalidInputFileIndex, e.Message);
+            }
+        }
+        
+        [TestMethod]
+        public void TestGetWordsInRangeWithStartIndexGreaterThanNumberOfWordsInInputFile()
+        {
+            int testRange = 2;
+            int testStartIndexInvalid = 5000;
+            InputFile file = new InputFile(LocalFilePathConstants.LocalTestFileDirectory + "ValidTestFile.txt");
+
+            try
+            {
+                file.GetWordsInRange(testStartIndexInvalid, testRange);
+            }
+            catch (ArgumentException e)
+            {
+                Assert.AreEqual(ErrorMessageConstants.InvalidInputFileIndex, e.Message);
+            }
+        }
+        
+        [TestMethod]
+        public void TestGetWordAtIndexWithValidIndex()
+        {
+            int testIndex = 3;
+            InputFile file = new InputFile(LocalFilePathConstants.LocalTestFileDirectory + "ValidTestFile.txt");
+
+            Assert.AreEqual("plan", file.GetWordAtIndex(testIndex));
+        }
+        
+        [TestMethod]
+        public void TestGetWordAtIndexWithInvalidIndex()
+        {
+            int testIndex = 3;
+            InputFile file = new InputFile(LocalFilePathConstants.LocalTestFileDirectory + "ValidTestFile.txt");
+
+            try
+            {
+                file.GetWordAtIndex(testIndex);
+            }
+            catch (ArgumentException e)
+            {
+                Assert.AreEqual(ErrorMessageConstants.InvalidInputFileIndex, e.Message);
+            }
+        }
+
     }
 }
