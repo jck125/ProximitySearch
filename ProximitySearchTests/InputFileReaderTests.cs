@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using CodingExercise.Constants;
 using CodingExercise.Inputfile;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -9,10 +10,31 @@ namespace ProximitySearchTests
     [TestClass]
     public class InputFileReaderTests
     {
+        private string TestFilePath;
+        
+        [TestInitialize]
+        public void Initialize()
+        {
+            TestFilePath = AppDomain.CurrentDomain.BaseDirectory;
+            File.WriteAllText(TestFilePath + TestFileNameContents.Example1FileName, TestFileContents.Example1Contents);
+            File.WriteAllText(TestFilePath + TestFileNameContents.Example2FileName, TestFileContents.Example2Contents);
+            File.WriteAllText(TestFilePath + TestFileNameContents.NewLinesFileName, TestFileContents.NewLineTestContents);
+            File.WriteAllText(TestFilePath + TestFileNameContents.EmptyFileName, string.Empty);
+        }
+
+        [TestCleanup]
+        public void CleanUp()
+        {
+            File.Delete(TestFilePath + TestFileNameContents.Example1FileName);
+            File.Delete(TestFilePath + TestFileNameContents.Example2FileName);
+            File.Delete(TestFilePath + TestFileNameContents.NewLinesFileName);
+            File.Delete(TestFilePath + TestFileNameContents.EmptyFileName);
+        }
+        
         [TestMethod]
         public void TestConstructor()
         {
-            InputFileReader reader = new InputFileReader(new InputFile(LocalFilePathConstants.LocalTestFileDirectory + LocalFilePathConstants.Example2FileName));
+            InputFileReader reader = new InputFileReader(new InputFile(TestFileNameContents.Example2FileName));
             
             //If no exception is thrown, this test passes
             Assert.IsTrue(true);
@@ -21,7 +43,7 @@ namespace ProximitySearchTests
         [TestMethod]
         public void TestReadUntilNextKeywordWithValidKeywords()
         {
-            InputFileReader reader = new InputFileReader(new InputFile(LocalFilePathConstants.LocalTestFileDirectory + LocalFilePathConstants.Example2FileName));
+            InputFileReader reader = new InputFileReader(new InputFile(TestFileNameContents.Example2FileName));
 
             Assert.AreEqual("the", reader.ReadUntilNextKeyword("the", "canal"));
             Assert.AreEqual("canal", reader.ReadUntilNextKeyword("panama", "canal"));
@@ -30,7 +52,7 @@ namespace ProximitySearchTests
         [TestMethod]
         public void TestReadUntilNextKeywordWithBlankKeyword()
         {
-            InputFileReader reader = new InputFileReader(new InputFile(LocalFilePathConstants.LocalTestFileDirectory + LocalFilePathConstants.Example2FileName));
+            InputFileReader reader = new InputFileReader(new InputFile(TestFileNameContents.Example2FileName));
 
             try
             {
@@ -45,7 +67,7 @@ namespace ProximitySearchTests
         [TestMethod]
         public void TestReadUntilNextKeywordWithNullKeyword()
         {
-            InputFileReader reader = new InputFileReader(new InputFile(LocalFilePathConstants.LocalTestFileDirectory + LocalFilePathConstants.Example2FileName));
+            InputFileReader reader = new InputFileReader(new InputFile(TestFileNameContents.Example2FileName));
 
             try
             {
@@ -60,7 +82,7 @@ namespace ProximitySearchTests
         [TestMethod]
         public void TestReadUntilNextKeywordWithKeywordsThatAreNotInValidTestFile()
         {
-            InputFileReader reader = new InputFileReader(new InputFile(LocalFilePathConstants.LocalTestFileDirectory + LocalFilePathConstants.Example2FileName));
+            InputFileReader reader = new InputFileReader(new InputFile(TestFileNameContents.Example2FileName));
             
             Assert.AreEqual("", reader.ReadUntilNextKeyword("MissingKeywordOne", "MissingKeywordTwo"));
         }
@@ -68,7 +90,7 @@ namespace ProximitySearchTests
         [TestMethod]
         public void TestGetRangeOfWordsWithValidRange()
         {
-            InputFileReader reader = new InputFileReader(new InputFile(LocalFilePathConstants.LocalTestFileDirectory + LocalFilePathConstants.Example2FileName));
+            InputFileReader reader = new InputFileReader(new InputFile(TestFileNameContents.Example2FileName));
             //Have to read before we can get the range of words
             reader.ReadUntilNextKeyword("the", "man");
             
@@ -80,7 +102,7 @@ namespace ProximitySearchTests
         [TestMethod]
         public void TestGetRangeOfWordsWithoutReading()
         {
-            InputFileReader reader = new InputFileReader(new InputFile(LocalFilePathConstants.LocalTestFileDirectory + LocalFilePathConstants.Example2FileName));
+            InputFileReader reader = new InputFileReader(new InputFile(TestFileNameContents.Example2FileName));
 
             try
             {

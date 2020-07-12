@@ -1,9 +1,7 @@
 namespace ProximitySearchTests.Constants
 {
-    public static class LocalFilePathConstants
+    public static class TestFileNameContents
     {
-        public const string LocalTestFileDirectory = "/Users/jacobkessler/RiderProjects/ProximitySearch/TestFiles/";
-
         public const string Example1FileName = "Example1TestFile.txt";
         public const string Example2FileName = "Example2TestFile.txt";
         public const string EmptyFileName = "EmptyTestFile.txt";

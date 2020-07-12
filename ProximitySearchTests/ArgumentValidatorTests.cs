@@ -1,3 +1,5 @@
+using System;
+using System.IO;
 using CodingExercise;
 using CodingExercise.Constants;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -8,18 +10,39 @@ namespace ProximitySearchTests
     [TestClass]
     public class ArgumentValidatorTests
     {
+        private string TestFilePath;
+        
+        [TestInitialize]
+        public void Initialize()
+        {
+            TestFilePath = AppDomain.CurrentDomain.BaseDirectory;
+            File.WriteAllText(TestFilePath + TestFileNameContents.Example1FileName, TestFileContents.Example1Contents);
+            File.WriteAllText(TestFilePath + TestFileNameContents.Example2FileName, TestFileContents.Example2Contents);
+            File.WriteAllText(TestFilePath + TestFileNameContents.NewLinesFileName, TestFileContents.NewLineTestContents);
+            File.WriteAllText(TestFilePath + TestFileNameContents.EmptyFileName, string.Empty);
+        }
+
+        [TestCleanup]
+        public void CleanUp()
+        {
+            File.Delete(TestFilePath + TestFileNameContents.Example1FileName);
+            File.Delete(TestFilePath + TestFileNameContents.Example2FileName);
+            File.Delete(TestFilePath + TestFileNameContents.NewLinesFileName);
+            File.Delete(TestFilePath + TestFileNameContents.EmptyFileName);
+        }
+
         [TestMethod]
         public void TestValidateArgumentsWithValidArguments()
         {
             Assert.IsTrue(ArgumentValidator.ValidateArguments("keywordOne", "keywordTwo", 
-                "6", LocalFilePathConstants.LocalTestFileDirectory + LocalFilePathConstants.Example2FileName, out string errorMessage));
+                "6", TestFileNameContents.Example2FileName, out string errorMessage));
         }
         
         [TestMethod]
         public void TestValidateArgumentsWhereFirstKeywordIsEmpty()
         {
             bool invalidArgumentsExpectFalse = ArgumentValidator.ValidateArguments(string.Empty, "keywordTwo", 
-                "6", LocalFilePathConstants.LocalTestFileDirectory + LocalFilePathConstants.Example2FileName, out string errorMessage);
+                "6", TestFileNameContents.Example2FileName, out string errorMessage);
 
             Assert.AreEqual(errorMessage, ErrorMessageConstants.InvalidKeywordArgumentErrorMessage);
             Assert.IsFalse(invalidArgumentsExpectFalse);
@@ -29,7 +52,7 @@ namespace ProximitySearchTests
         public void TestValidateArgumentsWhereSecondKeywordIsEmpty()
         {
             bool invalidArgumentsExpectFalse = ArgumentValidator.ValidateArguments("keywordOne", string.Empty, 
-                "6", LocalFilePathConstants.LocalTestFileDirectory + LocalFilePathConstants.Example2FileName, out string errorMessage);
+                "6", TestFileNameContents.Example2FileName, out string errorMessage);
 
             Assert.AreEqual(errorMessage, ErrorMessageConstants.InvalidKeywordArgumentErrorMessage);
             Assert.IsFalse(invalidArgumentsExpectFalse);
@@ -39,7 +62,7 @@ namespace ProximitySearchTests
         public void TestValidateArgumentsWhereBothKeywordIsEmpty()
         {
             bool invalidArgumentsExpectFalse = ArgumentValidator.ValidateArguments(string.Empty, string.Empty, 
-                "6", LocalFilePathConstants.LocalTestFileDirectory + LocalFilePathConstants.Example2FileName, out string errorMessage);
+                "6", TestFileNameContents.Example2FileName, out string errorMessage);
 
             Assert.AreEqual(errorMessage, ErrorMessageConstants.InvalidKeywordArgumentErrorMessage);
             Assert.IsFalse(invalidArgumentsExpectFalse);
@@ -49,7 +72,7 @@ namespace ProximitySearchTests
         public void TestValidateArgumentsWithInvalidRange()
         {
             bool invalidArgumentsExpectFalse = ArgumentValidator.ValidateArguments("keywordOne", "keywordTwo", 
-                "NotAnInteger", LocalFilePathConstants.LocalTestFileDirectory + LocalFilePathConstants.Example2FileName, out string errorMessage);
+                "NotAnInteger", TestFileNameContents.Example2FileName, out string errorMessage);
 
             Assert.AreEqual(errorMessage, ErrorMessageConstants.InvalidRangeArgumentErrorMessage);
             Assert.IsFalse(invalidArgumentsExpectFalse);
@@ -59,7 +82,7 @@ namespace ProximitySearchTests
         public void TestValidateArgumentsWithNonexistentFile()
         {
             bool invalidArgumentsExpectFalse = ArgumentValidator.ValidateArguments("keywordOne", "keywordTwo", 
-                "6", LocalFilePathConstants.MissingFileName, out string errorMessage);
+                "6", TestFileNameContents.MissingFileName, out string errorMessage);
 
             Assert.AreEqual(errorMessage, ErrorMessageConstants.InvalidFileArgumentErrorMessage);
             Assert.IsFalse(invalidArgumentsExpectFalse);
@@ -122,19 +145,19 @@ namespace ProximitySearchTests
         [TestMethod]
         public void TestValidateFileWithValidFile()
         {
-            Assert.IsTrue(ArgumentValidator.ValidateFile(LocalFilePathConstants.LocalTestFileDirectory + LocalFilePathConstants.Example2FileName));
+            Assert.IsTrue(ArgumentValidator.ValidateFile(TestFileNameContents.Example2FileName));
         }
         
         [TestMethod]
         public void TestValidateFileWithMissingFile()
         {
-            Assert.IsFalse(ArgumentValidator.ValidateFile(LocalFilePathConstants.LocalTestFileDirectory + LocalFilePathConstants.MissingFileName));
+            Assert.IsFalse(ArgumentValidator.ValidateFile(TestFileNameContents.MissingFileName));
         }
         
         [TestMethod]
         public void TestValidateFileWithBlankString()
         {
-            Assert.IsFalse(ArgumentValidator.ValidateFile(""));
+            Assert.IsFalse(ArgumentValidator.ValidateFile(string.Empty));
         }
         
         [TestMethod]
