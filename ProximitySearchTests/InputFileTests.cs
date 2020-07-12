@@ -31,6 +31,20 @@ namespace ProximitySearchTests
                 Assert.AreEqual(ErrorMessageConstants.InvalidFileArgumentErrorMessage, e.Message);
             }
         }
+        
+        [TestMethod]
+        public void TestGetWordCount()
+        {
+            InputFile file = new InputFile(LocalFilePathConstants.LocalTestFileDirectory + "ValidTestFile.txt");
+            Assert.AreEqual(21, file.GetWordCount());
+        }
+        
+        [TestMethod]
+        public void TestGetWordCountWithEmptyFile()
+        {
+            InputFile file = new InputFile(LocalFilePathConstants.LocalTestFileDirectory + "EmptyTestFile.txt");
+            Assert.AreEqual(0, file.GetWordCount());
+        }
 
         [TestMethod]
         public void TestGetWordsInRangeWithValidRange()
@@ -65,8 +79,14 @@ namespace ProximitySearchTests
             int testStartIndex = 0;
             InputFile file = new InputFile(LocalFilePathConstants.LocalTestFileDirectory + "ValidTestFile.txt");
 
-            string[] words = file.GetWordsInRange(testStartIndex, testRange);
-            Assert.AreEqual(testRange, words.Length);
+            try
+            {
+                file.GetWordsInRange(testStartIndex, testRange);
+            }
+            catch (ArgumentException e)
+            {
+                Assert.AreEqual(ErrorMessageConstants.InvalidInputFileRange, e.Message);
+            }
         }
         
         [TestMethod]

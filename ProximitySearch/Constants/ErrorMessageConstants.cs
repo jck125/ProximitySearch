@@ -7,6 +7,6 @@ namespace CodingExercise.Constants
         public const string InvalidFileArgumentErrorMessage = "The file could not be found or cannot be read";
 
         public const string InvalidInputFileIndex = "No word exists at this location in the input file";
-        public const string InvalidInputFileRange = "You cannot get words from the input file with a negative range";
+        public const string InvalidInputFileRange = "Range must be an integer greater than the MinimumValidRange";
     }
 }

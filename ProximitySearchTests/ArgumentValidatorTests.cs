@@ -64,5 +64,83 @@ namespace ProximitySearchTests
             Assert.AreEqual(errorMessage, ErrorMessageConstants.InvalidFileArgumentErrorMessage);
             Assert.IsFalse(invalidArgumentsExpectFalse);
         }
+        
+        [TestMethod]
+        public void TestValidateKeywordsWithValidKeywords()
+        {
+            Assert.IsTrue(ArgumentValidator.ValidateKeywords("ValidKeywordOne", "ValidKeywordTwo"));
+        }
+        
+        [TestMethod]
+        public void TestValidateKeywordsWithTheFirstKeywordInvalid()
+        {
+            Assert.IsFalse(ArgumentValidator.ValidateKeywords("", "ValidKeywordTwo"));
+        }
+        
+        [TestMethod]
+        public void TestValidateKeywordsWithTheSecondKeywordInvalid()
+        {
+            Assert.IsFalse(ArgumentValidator.ValidateKeywords("ValidKeywordOne", ""));
+        }
+        
+        [TestMethod]
+        public void TestValidateKeywordsWithBothKeywordsInvalid()
+        {
+            Assert.IsFalse(ArgumentValidator.ValidateKeywords("", ""));
+        }
+        
+        [TestMethod]
+        public void TestValidateStringRangeWithValidRange()
+        {
+            Assert.IsTrue(ArgumentValidator.ValidateRange("6"));
+        }
+        
+        [TestMethod]
+        public void TestValidateStringRangeWithNonIntegerString()
+        {
+            Assert.IsFalse(ArgumentValidator.ValidateRange("six"));
+        }
+        
+        [TestMethod]
+        public void TestValidateStringRangeWithIntegerStringLessThanMinimumRange()
+        {
+            Assert.IsFalse(ArgumentValidator.ValidateRange("0"));
+        }
+        
+        [TestMethod]
+        public void TestValidateIntRangeWithValidInteger()
+        {
+            Assert.IsTrue(ArgumentValidator.ValidateRange(6));
+        }
+        
+        [TestMethod]
+        public void TestValidateIntRangeWithIntegerLessThanMinimumRange()
+        {
+            Assert.IsFalse(ArgumentValidator.ValidateRange(0));
+        }
+        
+        [TestMethod]
+        public void TestValidateFileWithValidFile()
+        {
+            Assert.IsTrue(ArgumentValidator.ValidateFile(LocalFilePathConstants.LocalTestFileDirectory + "ValidTestFile.txt"));
+        }
+        
+        [TestMethod]
+        public void TestValidateFileWithMissingFile()
+        {
+            Assert.IsFalse(ArgumentValidator.ValidateFile(LocalFilePathConstants.LocalTestFileDirectory + "MissingTestFile.txt"));
+        }
+        
+        [TestMethod]
+        public void TestValidateFileWithBlankString()
+        {
+            Assert.IsFalse(ArgumentValidator.ValidateFile(""));
+        }
+        
+        [TestMethod]
+        public void TestValidateFileWithNullString()
+        {
+            Assert.IsFalse(ArgumentValidator.ValidateFile(null));
+        }
     }
 }
