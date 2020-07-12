@@ -12,14 +12,14 @@ namespace ProximitySearchTests
         public void TestValidateArgumentsWithValidArguments()
         {
             Assert.IsTrue(ArgumentValidator.ValidateArguments("keywordOne", "keywordTwo", 
-                "6", LocalFilePathConstants.LocalTestFileDirectory + "ValidTestFile.txt", out string errorMessage));
+                "6", LocalFilePathConstants.LocalTestFileDirectory + LocalFilePathConstants.Example2FileName, out string errorMessage));
         }
         
         [TestMethod]
         public void TestValidateArgumentsWhereFirstKeywordIsEmpty()
         {
             bool invalidArgumentsExpectFalse = ArgumentValidator.ValidateArguments(string.Empty, "keywordTwo", 
-                "6", LocalFilePathConstants.LocalTestFileDirectory + "ValidTestFile.txt", out string errorMessage);
+                "6", LocalFilePathConstants.LocalTestFileDirectory + LocalFilePathConstants.Example2FileName, out string errorMessage);
 
             Assert.AreEqual(errorMessage, ErrorMessageConstants.InvalidKeywordArgumentErrorMessage);
             Assert.IsFalse(invalidArgumentsExpectFalse);
@@ -29,7 +29,7 @@ namespace ProximitySearchTests
         public void TestValidateArgumentsWhereSecondKeywordIsEmpty()
         {
             bool invalidArgumentsExpectFalse = ArgumentValidator.ValidateArguments("keywordOne", string.Empty, 
-                "6", LocalFilePathConstants.LocalTestFileDirectory + "ValidTestFile.txt", out string errorMessage);
+                "6", LocalFilePathConstants.LocalTestFileDirectory + LocalFilePathConstants.Example2FileName, out string errorMessage);
 
             Assert.AreEqual(errorMessage, ErrorMessageConstants.InvalidKeywordArgumentErrorMessage);
             Assert.IsFalse(invalidArgumentsExpectFalse);
@@ -39,7 +39,7 @@ namespace ProximitySearchTests
         public void TestValidateArgumentsWhereBothKeywordIsEmpty()
         {
             bool invalidArgumentsExpectFalse = ArgumentValidator.ValidateArguments(string.Empty, string.Empty, 
-                "6", LocalFilePathConstants.LocalTestFileDirectory + "ValidTestFile.txt", out string errorMessage);
+                "6", LocalFilePathConstants.LocalTestFileDirectory + LocalFilePathConstants.Example2FileName, out string errorMessage);
 
             Assert.AreEqual(errorMessage, ErrorMessageConstants.InvalidKeywordArgumentErrorMessage);
             Assert.IsFalse(invalidArgumentsExpectFalse);
@@ -49,7 +49,7 @@ namespace ProximitySearchTests
         public void TestValidateArgumentsWithInvalidRange()
         {
             bool invalidArgumentsExpectFalse = ArgumentValidator.ValidateArguments("keywordOne", "keywordTwo", 
-                "NotAnInteger", LocalFilePathConstants.LocalTestFileDirectory + "ValidTestFile.txt", out string errorMessage);
+                "NotAnInteger", LocalFilePathConstants.LocalTestFileDirectory + LocalFilePathConstants.Example2FileName, out string errorMessage);
 
             Assert.AreEqual(errorMessage, ErrorMessageConstants.InvalidRangeArgumentErrorMessage);
             Assert.IsFalse(invalidArgumentsExpectFalse);
@@ -59,7 +59,7 @@ namespace ProximitySearchTests
         public void TestValidateArgumentsWithNonexistentFile()
         {
             bool invalidArgumentsExpectFalse = ArgumentValidator.ValidateArguments("keywordOne", "keywordTwo", 
-                "6", "FakeTestFile.txt", out string errorMessage);
+                "6", LocalFilePathConstants.MissingFileName, out string errorMessage);
 
             Assert.AreEqual(errorMessage, ErrorMessageConstants.InvalidFileArgumentErrorMessage);
             Assert.IsFalse(invalidArgumentsExpectFalse);
@@ -122,13 +122,13 @@ namespace ProximitySearchTests
         [TestMethod]
         public void TestValidateFileWithValidFile()
         {
-            Assert.IsTrue(ArgumentValidator.ValidateFile(LocalFilePathConstants.LocalTestFileDirectory + "ValidTestFile.txt"));
+            Assert.IsTrue(ArgumentValidator.ValidateFile(LocalFilePathConstants.LocalTestFileDirectory + LocalFilePathConstants.Example2FileName));
         }
         
         [TestMethod]
         public void TestValidateFileWithMissingFile()
         {
-            Assert.IsFalse(ArgumentValidator.ValidateFile(LocalFilePathConstants.LocalTestFileDirectory + "MissingTestFile.txt"));
+            Assert.IsFalse(ArgumentValidator.ValidateFile(LocalFilePathConstants.LocalTestFileDirectory + LocalFilePathConstants.MissingFileName));
         }
         
         [TestMethod]

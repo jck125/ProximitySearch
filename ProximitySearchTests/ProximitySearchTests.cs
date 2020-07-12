@@ -14,7 +14,7 @@ namespace ProximitySearchTests
         [TestMethod]
         public void TestConstructorValidArguments()
         {
-            string[] args = new[] {"the", "canal", "6", LocalFilePathConstants.LocalTestFileDirectory + "Example2TestFile.txt"};
+            string[] args = new[] {"the", "canal", "6", LocalFilePathConstants.LocalTestFileDirectory + LocalFilePathConstants.Example2FileName};
             _proximitySearch = new ProximitySearch(args);
             
             //If no exception is thrown, this test passes
@@ -24,7 +24,7 @@ namespace ProximitySearchTests
         [TestMethod]
         public void TestConstructorTooManyArguments()
         {
-            string[] args = new[] {"the", "canal", "6", LocalFilePathConstants.LocalTestFileDirectory + "Example2TestFile.txt", "additionalArg"};
+            string[] args = new[] {"the", "canal", "6", LocalFilePathConstants.LocalTestFileDirectory + LocalFilePathConstants.Example2FileName, "additionalArg"};
             
             try
             {
@@ -54,7 +54,7 @@ namespace ProximitySearchTests
         [TestMethod]
         public void TestSearchExampleTest1Expect3()
         {
-            string[] args = new[] {"the", "canal", "6", LocalFilePathConstants.LocalTestFileDirectory + "Example1TestFile.txt"};
+            string[] args = new[] {"the", "canal", "6", LocalFilePathConstants.LocalTestFileDirectory + LocalFilePathConstants.Example1FileName};
             _proximitySearch = new ProximitySearch(args);
             
             Assert.AreEqual(3, _proximitySearch.Search());
@@ -63,7 +63,7 @@ namespace ProximitySearchTests
         [TestMethod]
         public void TestSearchExampleTest1Expect1()
         {
-            string[] args = new[] {"the", "canal", "3", LocalFilePathConstants.LocalTestFileDirectory + "Example1TestFile.txt"};
+            string[] args = new[] {"the", "canal", "3", LocalFilePathConstants.LocalTestFileDirectory + LocalFilePathConstants.Example1FileName};
             _proximitySearch = new ProximitySearch(args);
             
             Assert.AreEqual(1, _proximitySearch.Search());
@@ -72,7 +72,7 @@ namespace ProximitySearchTests
         [TestMethod]
         public void TestSearchExampleTest2Expect11()
         {
-            string[] args = new[] {"the", "canal", "6", LocalFilePathConstants.LocalTestFileDirectory + "Example2TestFile.txt"};
+            string[] args = new[] {"the", "canal", "6", LocalFilePathConstants.LocalTestFileDirectory + LocalFilePathConstants.Example2FileName};
             _proximitySearch = new ProximitySearch(args);
             
             Assert.AreEqual(11, _proximitySearch.Search());
@@ -81,7 +81,7 @@ namespace ProximitySearchTests
         [TestMethod]
         public void TestSearchNewLineFileExpect3()
         {
-            string[] args = new[] {"the", "canal", "6", LocalFilePathConstants.LocalTestFileDirectory + "NewLinesTestFile.txt"};
+            string[] args = new[] {"the", "canal", "6", LocalFilePathConstants.LocalTestFileDirectory + LocalFilePathConstants.NewLinesFileName};
             _proximitySearch = new ProximitySearch(args);
             
             Assert.AreEqual(3, _proximitySearch.Search());

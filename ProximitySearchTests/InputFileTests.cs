@@ -13,7 +13,7 @@ namespace ProximitySearchTests
         [TestMethod]
         public void TestConstructorWithValidFile()
         {
-            InputFile file = new InputFile(LocalFilePathConstants.LocalTestFileDirectory + "ValidTestFile.txt");
+            InputFile file = new InputFile(LocalFilePathConstants.LocalTestFileDirectory + LocalFilePathConstants.Example2FileName);
             
             //If no exception is thrown, this test passes
             Assert.IsTrue(true);
@@ -24,7 +24,7 @@ namespace ProximitySearchTests
         {
             try
             {
-                InputFile file = new InputFile("FakeTestFile.txt");
+                InputFile file = new InputFile(LocalFilePathConstants.MissingFileName);
             }
             catch (FileNotFoundException e)
             {
@@ -35,14 +35,14 @@ namespace ProximitySearchTests
         [TestMethod]
         public void TestGetWordCount()
         {
-            InputFile file = new InputFile(LocalFilePathConstants.LocalTestFileDirectory + "ValidTestFile.txt");
+            InputFile file = new InputFile(LocalFilePathConstants.LocalTestFileDirectory + LocalFilePathConstants.Example2FileName);
             Assert.AreEqual(21, file.GetWordCount());
         }
         
         [TestMethod]
         public void TestGetWordCountWithEmptyFile()
         {
-            InputFile file = new InputFile(LocalFilePathConstants.LocalTestFileDirectory + "EmptyTestFile.txt");
+            InputFile file = new InputFile(LocalFilePathConstants.LocalTestFileDirectory + LocalFilePathConstants.EmptyFileName);
             Assert.AreEqual(0, file.GetWordCount());
         }
 
@@ -51,7 +51,7 @@ namespace ProximitySearchTests
         {
             int testRange = 2;
             int testStartIndex = 0;
-            InputFile file = new InputFile(LocalFilePathConstants.LocalTestFileDirectory + "ValidTestFile.txt");
+            InputFile file = new InputFile(LocalFilePathConstants.LocalTestFileDirectory + LocalFilePathConstants.Example2FileName);
 
             string[] words = file.GetWordsInRange(testStartIndex, testRange);
             Assert.AreEqual(testRange, words.Length);
@@ -64,7 +64,7 @@ namespace ProximitySearchTests
         {
             int testRange = 6;
             int testStartIndex = 19;
-            InputFile file = new InputFile(LocalFilePathConstants.LocalTestFileDirectory + "ValidTestFile.txt");
+            InputFile file = new InputFile(LocalFilePathConstants.LocalTestFileDirectory + LocalFilePathConstants.Example2FileName);
 
             string[] words = file.GetWordsInRange(testStartIndex, testRange);
             Assert.AreEqual(2, words.Length);
@@ -77,7 +77,7 @@ namespace ProximitySearchTests
         {
             int testRange = 0;
             int testStartIndex = 0;
-            InputFile file = new InputFile(LocalFilePathConstants.LocalTestFileDirectory + "ValidTestFile.txt");
+            InputFile file = new InputFile(LocalFilePathConstants.LocalTestFileDirectory + LocalFilePathConstants.Example2FileName);
 
             try
             {
@@ -94,7 +94,7 @@ namespace ProximitySearchTests
         {
             int testRangeInvalid = -1;
             int testStartIndex = 0;
-            InputFile file = new InputFile(LocalFilePathConstants.LocalTestFileDirectory + "ValidTestFile.txt");
+            InputFile file = new InputFile(LocalFilePathConstants.LocalTestFileDirectory + LocalFilePathConstants.Example2FileName);
 
             try
             {
@@ -111,7 +111,7 @@ namespace ProximitySearchTests
         {
             int testRange = 2;
             int testStartIndexInvalid = -1;
-            InputFile file = new InputFile(LocalFilePathConstants.LocalTestFileDirectory + "ValidTestFile.txt");
+            InputFile file = new InputFile(LocalFilePathConstants.LocalTestFileDirectory + LocalFilePathConstants.Example2FileName);
 
             try
             {
@@ -128,7 +128,7 @@ namespace ProximitySearchTests
         {
             int testRange = 2;
             int testStartIndexInvalid = 5000;
-            InputFile file = new InputFile(LocalFilePathConstants.LocalTestFileDirectory + "ValidTestFile.txt");
+            InputFile file = new InputFile(LocalFilePathConstants.LocalTestFileDirectory + LocalFilePathConstants.Example2FileName);
 
             try
             {
@@ -144,7 +144,7 @@ namespace ProximitySearchTests
         public void TestGetWordAtIndexWithValidIndex()
         {
             int testIndex = 3;
-            InputFile file = new InputFile(LocalFilePathConstants.LocalTestFileDirectory + "ValidTestFile.txt");
+            InputFile file = new InputFile(LocalFilePathConstants.LocalTestFileDirectory + LocalFilePathConstants.Example2FileName);
 
             Assert.AreEqual("plan", file.GetWordAtIndex(testIndex));
         }
@@ -153,7 +153,7 @@ namespace ProximitySearchTests
         public void TestGetWordAtIndexWithInvalidIndex()
         {
             int testIndex = 3;
-            InputFile file = new InputFile(LocalFilePathConstants.LocalTestFileDirectory + "ValidTestFile.txt");
+            InputFile file = new InputFile(LocalFilePathConstants.LocalTestFileDirectory + LocalFilePathConstants.Example2FileName);
 
             try
             {
