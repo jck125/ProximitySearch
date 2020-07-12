@@ -20,12 +20,29 @@ namespace CodingExercise.Inputfile
             if (File.Exists(filePath))
             {
                 string fileContents = File.ReadAllText(filePath);
+
+                if (string.IsNullOrWhiteSpace(fileContents))
+                {
+                    words = new string[0];
+                    return;
+                }
+                
                 fileContents = fileContents.Replace(Environment.NewLine, InputFileConstants.InputFileWordSeparator);
                 words = fileContents.Split(InputFileConstants.InputFileWordSeparator);
             }
             else
                 throw new FileNotFoundException(ErrorMessageConstants.InvalidFileArgumentErrorMessage);
         }
+
+        /// <summary>
+        /// Returns the number of words in the words list
+        /// </summary>
+        /// <returns>An integer of the number of words in the words list</returns>
+        public int GetWordCount()
+        {
+            return words.Length;
+        }
+        
         
         /// <summary>
         /// Returns an array which which contains the words from the words array starting at startIndex and moving
@@ -40,7 +57,7 @@ namespace CodingExercise.Inputfile
         {
             if(!ValidateIndex(startIndex))
                 throw new ArgumentException(ErrorMessageConstants.InvalidInputFileIndex);
-            if(!ValidateRange(range))
+            if(!ArgumentValidator.ValidateRange(range))
                 throw new ArgumentException(ErrorMessageConstants.InvalidInputFileRange);
 
             List<string> subArray = new List<string>();
@@ -82,16 +99,6 @@ namespace CodingExercise.Inputfile
         private bool ValidateIndex(int index)
         {
             return (index >= 0 && index < words.Length);
-        }
-        
-        /// <summary>
-        /// Validates the range argument and returns true if it is an integer greater than or equal to 0, otherwise returns false.
-        /// </summary>
-        /// <param name="range">range to be validated, must be greater than or equal to 0</param>
-        /// <returns>Returns true if the range is greater than 0, otherwise returns false</returns>
-        private bool ValidateRange(int range)
-        {
-            return (range >= 0);
         }
     }
 }
