@@ -85,7 +85,7 @@ namespace ProximitySearchTests
             }
             catch (ArgumentException e)
             {
-                Assert.AreEqual(ErrorMessageConstants.InvalidInputFileRange, e.Message);
+                Assert.AreEqual(ErrorMessageConstants.InvalidInputFileIndexErrorMessage, e.Message);
             }
         }
         
@@ -102,7 +102,7 @@ namespace ProximitySearchTests
             }
             catch (ArgumentException e)
             {
-                Assert.AreEqual(ErrorMessageConstants.InvalidInputFileRange, e.Message);
+                Assert.AreEqual(ErrorMessageConstants.InvalidInputFileIndexErrorMessage, e.Message);
             }
         }
         
@@ -119,7 +119,7 @@ namespace ProximitySearchTests
             }
             catch (ArgumentException e)
             {
-                Assert.AreEqual(ErrorMessageConstants.InvalidInputFileIndex, e.Message);
+                Assert.AreEqual(ErrorMessageConstants.InvalidInputFileIndexErrorMessage, e.Message);
             }
         }
         
@@ -136,7 +136,7 @@ namespace ProximitySearchTests
             }
             catch (ArgumentException e)
             {
-                Assert.AreEqual(ErrorMessageConstants.InvalidInputFileIndex, e.Message);
+                Assert.AreEqual(ErrorMessageConstants.InvalidInputFileIndexErrorMessage, e.Message);
             }
         }
         
@@ -161,7 +161,7 @@ namespace ProximitySearchTests
             }
             catch (ArgumentException e)
             {
-                Assert.AreEqual(ErrorMessageConstants.InvalidInputFileIndex, e.Message);
+                Assert.AreEqual(ErrorMessageConstants.InvalidInputFileIndexErrorMessage, e.Message);
             }
         }
 

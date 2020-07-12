@@ -1,6 +1,5 @@
+
 using System;
-using System.IO;
-using System.Reflection;
 
 namespace CodingExercise
 {
@@ -8,7 +7,15 @@ namespace CodingExercise
     {
         static void Main(string[] args)
         {
-            ProximitySearch proximitySearch = new ProximitySearch(args);
+            try
+            {
+                ProximitySearch proximitySearch = new ProximitySearch(args);
+                Console.WriteLine(proximitySearch.Search());
+            }
+            catch (ArgumentException e)
+            {
+                Console.WriteLine(e.Message);
+            }
         }
     }
 }

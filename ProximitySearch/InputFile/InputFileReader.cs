@@ -1,6 +1,5 @@
 using System;
 using CodingExercise.Constants;
-using Microsoft.VisualBasic;
 
 namespace CodingExercise.Inputfile
 {
@@ -12,7 +11,7 @@ namespace CodingExercise.Inputfile
         public InputFileReader(InputFile inputFile)
         {
             this.inputFile = inputFile;
-            currentIndex = 0;
+            currentIndex = -1;
         }
         
         /// <summary>
@@ -41,10 +40,19 @@ namespace CodingExercise.Inputfile
             return string.Empty;
         }
 
+        /// <summary>
+        /// Returns a range length list of words starting at the current word and moving forward along the list.
+        /// Must call ReadUntilNextKeyword at least once before calling this method
+        /// </summary>
+        /// <param name="range">The number of words we should return</param>
+        /// <returns>Returns a range list of words starting from the current index</returns>
+        /// <exception cref="ArgumentException">Throws an exception if range is less than the minimum range value</exception>
         public string[] GetRangeOfWords(int range)
         {
             if(!ArgumentValidator.ValidateRange(range))
                 throw new ArgumentException(ErrorMessageConstants.InvalidKeywordArgumentErrorMessage);
+            if(currentIndex < 0)
+                throw new InvalidOperationException(ErrorMessageConstants.InputFileReaderGetRangeWithoutReadingErrorMessage);
 
             return inputFile.GetWordsInRange(currentIndex, range);
         }

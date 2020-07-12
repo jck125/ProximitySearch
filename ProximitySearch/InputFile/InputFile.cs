@@ -56,9 +56,9 @@ namespace CodingExercise.Inputfile
         public string[] GetWordsInRange(int startIndex, int range)
         {
             if(!ValidateIndex(startIndex))
-                throw new ArgumentException(ErrorMessageConstants.InvalidInputFileIndex);
+                throw new ArgumentException(ErrorMessageConstants.InvalidInputFileIndexErrorMessage);
             if(!ArgumentValidator.ValidateRange(range))
-                throw new ArgumentException(ErrorMessageConstants.InvalidInputFileRange);
+                throw new ArgumentException(ErrorMessageConstants.InvalidInputFileIndexErrorMessage);
 
             List<string> subArray = new List<string>();
             int currentIndex = startIndex;
@@ -86,7 +86,7 @@ namespace CodingExercise.Inputfile
         public string GetWordAtIndex(int index)
         {
             if(!ValidateIndex(index))
-                throw new ArgumentException(ErrorMessageConstants.InvalidInputFileIndex);
+                throw new ArgumentException(ErrorMessageConstants.InvalidInputFileIndexErrorMessage);
 
             return words[index];
         }

@@ -1,6 +1,6 @@
 using System;
-using System.IO;
 using CodingExercise;
+using CodingExercise.Constants;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ProximitySearchTests.Constants;
 
@@ -12,26 +12,79 @@ namespace ProximitySearchTests
         private ProximitySearch _proximitySearch;
 
         [TestMethod]
-        public void TestConstructorValidInput()
+        public void TestConstructorValidArguments()
         {
-            string[] args = new[] {"the", "canal", "6", LocalFilePathConstants.LocalTestFileDirectory + "ValidTestFile.txt"};
+            string[] args = new[] {"the", "canal", "6", LocalFilePathConstants.LocalTestFileDirectory + "Example2TestFile.txt"};
             _proximitySearch = new ProximitySearch(args);
+            
+            //If no exception is thrown, this test passes
+            Assert.IsTrue(true);
         }
         
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
         public void TestConstructorTooManyArguments()
         {
-            string[] args = new[] {"the", "canal", "6", LocalFilePathConstants.LocalTestFileDirectory + "ValidTestFile.txt", "additionalArg"};
-            _proximitySearch = new ProximitySearch(args);
+            string[] args = new[] {"the", "canal", "6", LocalFilePathConstants.LocalTestFileDirectory + "Example2TestFile.txt", "additionalArg"};
+            
+            try
+            {
+                _proximitySearch = new ProximitySearch(args);
+            }
+            catch (ArgumentException e)
+            {
+                Assert.AreEqual(ErrorMessageConstants.TooManyOrTooFewArgumentsErrorMessage, e.Message);
+            }
         }
         
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
         public void TestConstructorTooFewArguments()
         {
             string[] args = new[] {"the", "canal", "6"};
+
+            try
+            {
+                _proximitySearch = new ProximitySearch(args);
+            }
+            catch (ArgumentException e)
+            {
+                Assert.AreEqual(ErrorMessageConstants.TooManyOrTooFewArgumentsErrorMessage, e.Message);
+            }
+        }
+        
+        [TestMethod]
+        public void TestSearchExampleTest1Expect3()
+        {
+            string[] args = new[] {"the", "canal", "6", LocalFilePathConstants.LocalTestFileDirectory + "Example1TestFile.txt"};
             _proximitySearch = new ProximitySearch(args);
+            
+            Assert.AreEqual(3, _proximitySearch.Search());
+        }
+        
+        [TestMethod]
+        public void TestSearchExampleTest1Expect1()
+        {
+            string[] args = new[] {"the", "canal", "3", LocalFilePathConstants.LocalTestFileDirectory + "Example1TestFile.txt"};
+            _proximitySearch = new ProximitySearch(args);
+            
+            Assert.AreEqual(1, _proximitySearch.Search());
+        }
+        
+        [TestMethod]
+        public void TestSearchExampleTest2Expect11()
+        {
+            string[] args = new[] {"the", "canal", "6", LocalFilePathConstants.LocalTestFileDirectory + "Example2TestFile.txt"};
+            _proximitySearch = new ProximitySearch(args);
+            
+            Assert.AreEqual(11, _proximitySearch.Search());
+        }
+        
+        [TestMethod]
+        public void TestSearchNewLineFileExpect3()
+        {
+            string[] args = new[] {"the", "canal", "6", LocalFilePathConstants.LocalTestFileDirectory + "NewLinesTestFile.txt"};
+            _proximitySearch = new ProximitySearch(args);
+            
+            Assert.AreEqual(3, _proximitySearch.Search());
         }
     }
 }

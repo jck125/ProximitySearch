@@ -69,10 +69,27 @@ namespace ProximitySearchTests
         public void TestGetRangeOfWordsWithValidRange()
         {
             InputFileReader reader = new InputFileReader(new InputFile(LocalFilePathConstants.LocalTestFileDirectory + "ValidTestFile.txt"));
+            //Have to read before we can get the range of words
+            reader.ReadUntilNextKeyword("the", "man");
             
             Assert.AreEqual(2, reader.GetRangeOfWords(2).Length);
             Assert.AreEqual("the", reader.GetRangeOfWords(2)[0]);
             Assert.AreEqual("man", reader.GetRangeOfWords(2)[1]);
+        }
+        
+        [TestMethod]
+        public void TestGetRangeOfWordsWithoutReading()
+        {
+            InputFileReader reader = new InputFileReader(new InputFile(LocalFilePathConstants.LocalTestFileDirectory + "ValidTestFile.txt"));
+
+            try
+            {
+                reader.GetRangeOfWords(2);
+            }
+            catch (InvalidOperationException e)
+            {
+                Assert.AreEqual(ErrorMessageConstants.InputFileReaderGetRangeWithoutReadingErrorMessage, e.Message);
+            }
         }
     }
 }
