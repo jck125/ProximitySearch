@@ -2,10 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using CodingExercise.Constants;
+using CodingExercise.Interfaces;
 
 namespace CodingExercise.Inputfile
 {
-    public class InputFile
+    public class InputFile : IInputFile
     {
         private readonly string[] words;
         

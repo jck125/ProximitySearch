@@ -10,6 +10,8 @@ namespace CodingExercise
         private readonly string keywordTwo;
         private readonly int range;
         private readonly string file;
+
+        private InputFileReader reader;
         
         public ProximitySearch(string[] args)
         {
@@ -35,7 +37,7 @@ namespace CodingExercise
         /// </summary>
         public int Search()
         {
-            InputFileReader reader = InputFileReader.GetReader(this.file);
+            reader = InputFileReader.GetReader(this.file);
             
             //Get the first keyword in the file
             string currentWord = reader.ReadUntilNextKeyword(keywordOne, keywordTwo);

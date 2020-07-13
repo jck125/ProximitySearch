@@ -1,9 +1,10 @@
 using System;
 using CodingExercise.Constants;
+using CodingExercise.Interfaces;
 
 namespace CodingExercise.Inputfile
 {
-    public class InputFileReader
+    public class InputFileReader : IFileReader
     {
         private readonly InputFile inputFile;
         private int currentIndex;
