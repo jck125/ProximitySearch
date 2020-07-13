@@ -14,7 +14,7 @@ To think of it in another way, for each element that we add to an already very l
 Note that the following steps assume that the latest version of the .NET Core SDK is installed on this computer.
 
 ### Build Steps:
-1. Navigate into the ProximitySearch solution directory (cd ProximitySearch)
+1. Navigate into the ProximitySearch directory that contains the solution (.sln) file
 2. Type in the Terminal or Command Prompt: dotnet build
 
 ### Execute Tests Steps:
@@ -22,5 +22,5 @@ Note that the following steps assume that the latest version of the .NET Core SD
 2. Type in the Terminal or Command Prompt: dotnet test
 
 ### Run Application Steps:
-1. After completing the build steps, navigate into the ProximitySearch project directory (cd ProximitySearch)
+1. After completing the build steps, navigate into the ProximitySearch directory that contains the project (.csproj) file
 2. Type in the Terminal or Command Prompt: dotnet run <keyword1> <keyword2> <range> <input_filename>
