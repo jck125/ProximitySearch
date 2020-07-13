@@ -15,7 +15,7 @@ namespace CodingExercise.Inputfile
         /// </summary>
         /// <param name="filePath">The path to the file to be read</param>
         /// <exception cref="FileNotFoundException">Returns this exception if the file does not exist or cannot be read</exception>
-        public InputFile(string filePath)
+        private InputFile(string filePath)
         {
             if (File.Exists(filePath))
             {
@@ -104,5 +104,16 @@ namespace CodingExercise.Inputfile
         {
             return (index >= 0 && index < words.Length);
         }
+
+        /// <summary>
+        /// A static factory class for the InputFile
+        /// </summary>
+        /// <param name="filePath">The path and name of the input file</param>
+        /// <returns>Returns an InputFile</returns>
+        public static InputFile GetInputFile(string filePath)
+        {
+            return new InputFile(filePath);
+        }
+        
     }
 }

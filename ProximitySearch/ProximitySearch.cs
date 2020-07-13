@@ -35,7 +35,7 @@ namespace CodingExercise
         /// </summary>
         public int Search()
         {
-            InputFileReader reader = new InputFileReader(new InputFile(this.file));
+            InputFileReader reader = InputFileReader.GetReader(this.file);
             
             //Get the first keyword in the file
             string currentWord = reader.ReadUntilNextKeyword(keywordOne, keywordTwo);

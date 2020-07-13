@@ -8,7 +8,7 @@ namespace CodingExercise.Inputfile
         private readonly InputFile inputFile;
         private int currentIndex;
 
-        public InputFileReader(InputFile inputFile)
+        private InputFileReader(InputFile inputFile)
         {
             this.inputFile = inputFile;
             currentIndex = -1;
@@ -58,6 +58,16 @@ namespace CodingExercise.Inputfile
                 throw new InvalidOperationException(ErrorMessageConstants.InputFileReaderGetRangeWithoutReadingErrorMessage);
 
             return inputFile.GetWordsInRange(currentIndex, range);
+        }
+
+        /// <summary>
+        /// A static factory class for the InputFileReader
+        /// </summary>
+        /// <param name="filePath">The path and name of the input file</param>
+        /// <returns>Returns the InputFileReader</returns>
+        public static InputFileReader GetReader(string filePath)
+        {
+            return new InputFileReader(InputFile.GetInputFile(filePath));
         }
     }
 }

@@ -34,7 +34,7 @@ namespace ProximitySearchTests
         [TestMethod]
         public void TestConstructor()
         {
-            InputFileReader reader = new InputFileReader(new InputFile(TestFileNameContents.Example2FileName));
+            InputFileReader reader = InputFileReader.GetReader(TestFileNameContents.Example2FileName);
             
             //If no exception is thrown, this test passes
             Assert.IsTrue(true);
@@ -43,7 +43,7 @@ namespace ProximitySearchTests
         [TestMethod]
         public void TestReadUntilNextKeywordWithValidKeywords()
         {
-            InputFileReader reader = new InputFileReader(new InputFile(TestFileNameContents.Example2FileName));
+            InputFileReader reader = InputFileReader.GetReader(TestFileNameContents.Example2FileName);
 
             Assert.AreEqual("the", reader.ReadUntilNextKeyword("the", "canal"));
             Assert.AreEqual("canal", reader.ReadUntilNextKeyword("panama", "canal"));
@@ -52,7 +52,7 @@ namespace ProximitySearchTests
         [TestMethod]
         public void TestReadUntilNextKeywordWithBlankKeyword()
         {
-            InputFileReader reader = new InputFileReader(new InputFile(TestFileNameContents.Example2FileName));
+            InputFileReader reader = InputFileReader.GetReader(TestFileNameContents.Example2FileName);
 
             try
             {
@@ -67,7 +67,7 @@ namespace ProximitySearchTests
         [TestMethod]
         public void TestReadUntilNextKeywordWithNullKeyword()
         {
-            InputFileReader reader = new InputFileReader(new InputFile(TestFileNameContents.Example2FileName));
+            InputFileReader reader = InputFileReader.GetReader(TestFileNameContents.Example2FileName);
 
             try
             {
@@ -82,7 +82,7 @@ namespace ProximitySearchTests
         [TestMethod]
         public void TestReadUntilNextKeywordWithKeywordsThatAreNotInValidTestFile()
         {
-            InputFileReader reader = new InputFileReader(new InputFile(TestFileNameContents.Example2FileName));
+            InputFileReader reader = InputFileReader.GetReader(TestFileNameContents.Example2FileName);
             
             Assert.AreEqual("", reader.ReadUntilNextKeyword("MissingKeywordOne", "MissingKeywordTwo"));
         }
@@ -90,7 +90,7 @@ namespace ProximitySearchTests
         [TestMethod]
         public void TestGetRangeOfWordsWithValidRange()
         {
-            InputFileReader reader = new InputFileReader(new InputFile(TestFileNameContents.Example2FileName));
+            InputFileReader reader = InputFileReader.GetReader(TestFileNameContents.Example2FileName);
             //Have to read before we can get the range of words
             reader.ReadUntilNextKeyword("the", "man");
             
@@ -102,7 +102,7 @@ namespace ProximitySearchTests
         [TestMethod]
         public void TestGetRangeOfWordsWithoutReading()
         {
-            InputFileReader reader = new InputFileReader(new InputFile(TestFileNameContents.Example2FileName));
+            InputFileReader reader = InputFileReader.GetReader(TestFileNameContents.Example2FileName);
 
             try
             {
