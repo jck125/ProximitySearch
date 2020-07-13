@@ -91,6 +91,15 @@ namespace ProximitySearchTests
         }
         
         [TestMethod]
+        public void TestSearchExampleTest1WithTwoIdenticalKeywords()
+        {
+            string[] args = new[] {"the", "the", "6", TestFileNameContents.Example1FileName};
+            proximitySearch = new ProximitySearch(args);
+            
+            Assert.AreEqual(3, proximitySearch.Search());
+        }
+        
+        [TestMethod]
         public void TestSearchExampleTest2Expect11()
         {
             string[] args = new[] {"the", "canal", "6", TestFileNameContents.Example2FileName};

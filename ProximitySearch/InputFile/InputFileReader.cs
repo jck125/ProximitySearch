@@ -28,8 +28,10 @@ namespace CodingExercise.Inputfile
             //Start reading by looking at the next word
             currentIndex++;
             
+            //Be prepared to read until we get to the end of the file
             for (; currentIndex < inputFile.GetWordCount(); currentIndex++)
             {
+                //If we find either of the two keywords, end the loop and return the current word
                 if (keywordOne.Equals(inputFile.GetWordAtIndex(currentIndex))
                     || keywordTwo.Equals(inputFile.GetWordAtIndex(currentIndex)))
                 {
@@ -37,6 +39,7 @@ namespace CodingExercise.Inputfile
                 }
             }
 
+            //If we reach this point, notify the caller that we have reached the end of the file by returning an empty string
             return string.Empty;
         }
 

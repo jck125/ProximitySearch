@@ -36,15 +36,20 @@ namespace CodingExercise
         public int Search()
         {
             InputFileReader reader = new InputFileReader(new InputFile(this.file));
+            
+            //Get the first keyword in the file
             string currentWord = reader.ReadUntilNextKeyword(keywordOne, keywordTwo);
             int proximityCount = 0;
 
             do
             {
+                //Calculate the proximity of the range of words from the current position
                 proximityCount += CalculateProximity(reader.GetRangeOfWords(range));
+                
+                //Get the next keyword in the file
                 currentWord = reader.ReadUntilNextKeyword(keywordOne, keywordTwo);
             } 
-            while (currentWord.Length != 0);
+            while (!string.IsNullOrEmpty(currentWord)); //ReadUntilNextKeyword returns an empty string, we have reached the end of the file and can stop looping
 
             return proximityCount;
         }
@@ -57,16 +62,21 @@ namespace CodingExercise
         /// <returns>Returns the number of times the first word in the list is a keyword the other keyword also exists in the list</returns>
         private int CalculateProximity(string[] words)
         {
+            int proximity = 0;
+            
+            //Depending on which keyword this range starts from,
+            //we want to get the number of occurences of the other keyword in that range
             if (words[0].Equals(keywordOne))
-            {
-                return words.Count(word => word.Equals(keywordTwo));
-            }
+                proximity = words.Count(word => word.Equals(keywordTwo));
             else if (words[0].Equals(keywordTwo))
-            {
-                return words.Count(word => word.Equals(keywordOne));
-            }
+                proximity = words.Count(word => word.Equals(keywordOne));
 
-            return 0;
+            //If the keywords are the same,
+            //we'll have to decrement the proximity by one so we don't double count the first word of the range
+            if (keywordOne.Equals(keywordTwo))
+                proximity--;
+
+            return proximity;
         }
     }
 }

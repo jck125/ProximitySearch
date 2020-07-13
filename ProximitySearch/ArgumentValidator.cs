@@ -58,6 +58,8 @@ namespace CodingExercise
         /// <returns>Returns true if the range is an integer and greater than the MinimumValidRange, otherwise returns false</returns>
         public static bool ValidateRange(string rangeArgument)
         {
+            //We don't actually want to use the convertedRange from this TryParse,
+            //we just want to know if rangeArgument can be converted to an integer
             return int.TryParse(rangeArgument, out var convertedRange) && (convertedRange >= ArgumentValidationConstants.MinimumValidRange);
         }
         

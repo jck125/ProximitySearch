@@ -27,6 +27,7 @@ namespace CodingExercise.Inputfile
                     return;
                 }
                 
+                //Need to treat new line characters as spaces, so replace new line characters with spaces and split on the spaces
                 fileContents = fileContents.Replace(Environment.NewLine, InputFileConstants.InputFileWordSeparator);
                 words = fileContents.Split(InputFileConstants.InputFileWordSeparator);
             }
@@ -42,8 +43,7 @@ namespace CodingExercise.Inputfile
         {
             return words.Length;
         }
-        
-        
+
         /// <summary>
         /// Returns an array which which contains the words from the words array starting at startIndex and moving
         /// forward for distance range. If the range extends past the end of the words array, method returns an array
@@ -60,17 +60,21 @@ namespace CodingExercise.Inputfile
             if(!ArgumentValidator.ValidateRange(range))
                 throw new ArgumentException(ErrorMessageConstants.InvalidInputFileIndexErrorMessage);
 
+            
             List<string> subArray = new List<string>();
             int currentIndex = startIndex;
 
+            //Loop until we have added <range> items to the subArray list
             for (int i = 0; i < range; i++)
             {
+                //If there are more words in the file...
                 if (currentIndex < words.Length)
                 {
+                    //Add them to the list and increment the index
                     subArray.Add(words[currentIndex]);
                     currentIndex++;
                 }
-                else 
+                else //Otherwise, we are at the end of the file and have no more words to add to the subArray list
                     break;
             }
 
